@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Header from './Header';
 import Products from './Products';
 import Cart from './Cart'
+import Checkout from './Checkout'
 import {BrowserRouter as Router, Route} from "react-router-dom";
 import './App.css';
 import {observer} from "mobx-react"
@@ -29,6 +30,7 @@ class App extends Component {
                     <Header store={store}/>
                     <Route exact path="/" component={Products}/>
                     <Route path="/cart" component={Cart}/>
+                    <Route path="/checkout" component={Checkout}/>
                 </div>
             </Router>
         );
