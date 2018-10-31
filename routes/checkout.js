@@ -2,16 +2,29 @@ var express = require('express');
 var router = express.Router();
 var fs = require('fs');
 var request = require('request');
-const vantivIFrameUrl = "https://certtransaction.hostedpayments.com/?TransactionSetupID=";//4770ADFB-3150-44E2-BB00-19E62B92FA29
+var config = require('../config/config');
 
 router.post('/', function(req, res, next) {
-    const total = req.body.total;
+    let total = req.body.total;
+
+    //conversion 3.5 => 3.50
+    if (total.match(/\.\d$/)) {
+        total += '0'
+    }
 
     fs.readFile('public/generate-request.xml', 'utf8', function(err, contents) {
+        contents = contents.replace('{amount}', total)
+            .replace('{returnUrl}', config.vantiv.returnUrl)
+            .replace('{accountId}', config.vantiv.accountId)
+            .replace('{accountToken}', config.vantiv.accountToken)
+            .replace('{applicationId}', config.vantiv.applicationId)
+            .replace('{applicationName}', config.vantiv.applicationName)
+            .replace('{acceptorId}', config.vantiv.acceptorId)
+
         request.post({
-            url: 'https://certtransaction.elementexpress.com',
+            url: config.vantiv.url, //https://certtransaction.elementexpress.com
             headers: {'Content-Type': 'text/xml'},
-            body: contents.replace('{amount}', total)
+            body: contents
         }, function(error, response, payload){
             if (error) {
                 res.status(500)
@@ -22,9 +35,14 @@ router.post('/', function(req, res, next) {
                 const matches = payload.match("<TransactionSetupID>([^<]+)</TransactionSetupID>");
                 if (matches) {
                     const tId = matches[1]
-                    console.log(vantivIFrameUrl, tId)
+                    var iframeUrl = config.vantiv.iframeUrl.replace('{transactionSetupId}', tId);
 
-                    res.send(vantivIFrameUrl + tId);
+                    console.log('iFrame url', iframeUrl);
+
+                    res.send(iframeUrl);
+                } else {
+                    res.status(500)
+                    res.render('error', {error: payload})
                 }
 
             }

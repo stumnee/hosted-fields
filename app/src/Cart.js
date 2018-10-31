@@ -1,23 +1,26 @@
 import React from 'react'
-import {Link} from "react-router-dom";
 import store from "./Store";
 import {observer} from "mobx-react"
+import {withRouter} from "react-router-dom"
 
 class Cart extends React.Component {
     componentDidMount() {
         store.title = "Shopping Cart"
     }
-    onCheckout() {
-        let formData = new FormData();
-        formData.append('total', store.cartTotal());
-        fetch('/checkout', {
+    onCheckout(self) {
+        let history = this.props.history
+
+        fetch('/api/checkout', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
             },
             body: 'total=' + store.cartTotal()
         }).then(res => res.text())
-            .then(url=>store.vantivUrl = url)
+            .then((url)=>{
+                store.vantivUrl = url
+                history.push('/checkout')
+            })
     }
 
     render() {
@@ -34,7 +37,7 @@ class Cart extends React.Component {
             items = <div>
                 <table className="cart-items"><tbody>{inCartItems}</tbody></table>
 
-                <button onClick={this.onCheckout}>Proceed to checkout</button>
+                <button onClick={this.onCheckout.bind(this)}>Proceed to checkout</button>
             </div>
         }
 
@@ -47,4 +50,4 @@ class Cart extends React.Component {
     }
 }
 
-export default observer(Cart)
+export default withRouter(observer(Cart))

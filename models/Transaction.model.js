@@ -19,7 +19,7 @@ var TransactionSchema = new Schema({
     Entry: String,//=Manual
     created: {
         type: Date,
-        default: new Date()
+        default: Date.now
     }
 });
 

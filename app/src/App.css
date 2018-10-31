@@ -25,6 +25,13 @@
     color: white;
     flex-grow: 1;
     text-align: right;
+    align-items: center;
+    display: flex;
+    flex-direction: row-reverse;
+}
+.cart-link svg {
+    fill: white;
+    margin-right: 5px;
 }
 
 .App-link {
@@ -70,6 +77,8 @@
     right: 10px;
     top: 10px;
     visibility: hidden;
+    fill: gold;
+    cursor: pointer;
 }
 .Product:hover .cart-add-button {
     visibility: visible;
@@ -81,7 +90,13 @@
 .Cart {
     padding: 40px;
 }
-
+.Cart button {
+    width: 300px;
+    height: 50px;
+    border-radius: 5px;
+    font-size: larger;
+    background-color: gold;
+}
 .cart-items {
     width: 50%;
     margin-left: auto;
@@ -94,7 +109,7 @@
     padding: 5px 10px 5px 5px;
 }
 
-.cart-items>tr:last-child { background: gold }
+.cart-items tr:last-child { background: gold }
 
 
 .cart-items img {
@@ -116,4 +131,14 @@
     width: 100%;
     height: 600px;
     border: none;
+}
+
+.Complete {
+    padding: 20px;
+}
+.Complete ul {
+    list-style: none;
+}
+.Complete li {
+    padding: 10px;
 }

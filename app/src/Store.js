@@ -1,4 +1,4 @@
-import {decorate, observable, computed} from "mobx"
+import {decorate, observable} from "mobx"
 
 class Store {
     title = "Products"
@@ -7,7 +7,7 @@ class Store {
     inCart = []
     cartTotal = function() {
         return this.inCart.reduce(function(total, product) {
-            return total + product.price
+            return Math.floor((total + product.price) * 100) / 100
         }, 0)
     }
 

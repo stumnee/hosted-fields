@@ -1,5 +1,8 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-  
+#ignore prod config
+/config/*.config.js
+!/config/default.config.js
+!/config/development.config.js
+
 # dependencies
 node_modules
 

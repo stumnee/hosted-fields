@@ -1,13 +1,13 @@
 <TransactionSetup xmlns="https://transaction.elementexpress.com">
     <Credentials>
-        <AccountID>1057153</AccountID>
-        <AccountToken>A05C4CEDDBF85B7C59CE524E984A34A2A5BD7548407DCE76B6B8A40449C15B4B4E051301</AccountToken>
-        <AcceptorID>3928907</AcceptorID>
+        <AccountID>{accountId}</AccountID>
+        <AccountToken>{accountToken}</AccountToken>
+        <AcceptorID>{acceptorId}</AcceptorID>
     </Credentials>
     <Application>
-        <ApplicationID>9599</ApplicationID>
+        <ApplicationID>{applicationId}</ApplicationID>
         <ApplicationVersion>1.0</ApplicationVersion>
-        <ApplicationName>HostedPayments</ApplicationName>
+        <ApplicationName>{applicationName}</ApplicationName>
     </Application>
     <Terminal>
         <TerminalID>01</TerminalID>
@@ -23,10 +23,10 @@
         <TransactionAmount>{amount}</TransactionAmount>
     </Transaction>
     <TransactionSetup>
-        <TransactionSetupMethod>1</TransactionSetupMethod>
+        <TransactionSetupMethod>2</TransactionSetupMethod>
         <Embedded>1</Embedded>
         <AutoReturn>1</AutoReturn>
-        <ReturnURL>http://localhost:3333/Complete</ReturnURL>
+        <ReturnURL>{returnUrl}</ReturnURL>
         <CustomCss>body{margin-left:50px;font-family:arial;font-size:medium;border:none;}</CustomCss>
     </TransactionSetup>
 </TransactionSetup>

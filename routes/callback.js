@@ -5,7 +5,6 @@ var Transaction = mongoose.model('Transaction');
 
 
 router.get('/', function(req, res, next) {
-  console.log(req);
   var transaction = new Transaction(req.query);
   transaction.save(function (err) {
       if (err) {
@@ -15,7 +14,7 @@ router.get('/', function(req, res, next) {
           console.log("ok");
       }
   });
-  res.send('OK');
+  res.send('<html><script>window.parent.location="http://hostedfields/complete' + req.originalUrl.replace("/api/completed", "") + '"</script></html>');
 });
 
 router.post('/', function(req, res, next) {
