@@ -1,6 +1,7 @@
 module.exports = {
     vantiv: {
-        returnUrl: 'http://hostedfields/api/completed'
+        returnUrl: 'http://localhost:3333/api/completed'
     },
-    port: 3334
+    baseUrl: 'http://localhost:3333/',
+    port: 3333
 };

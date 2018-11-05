@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
 var Transaction = mongoose.model('Transaction');
+var config = require('../config/config');
 
 
 router.get('/', function(req, res, next) {
@@ -14,7 +15,7 @@ router.get('/', function(req, res, next) {
           console.log("ok");
       }
   });
-  res.send('<html><script>window.parent.location="http://hostedfields/complete' + req.originalUrl.replace("/api/completed", "") + '"</script></html>');
+  res.send('<html><script>window.parent.location="' + config.baseUrl + 'complete' + req.originalUrl.replace("/api/completed", "") + '"</script></html>');
 });
 
 router.post('/', function(req, res, next) {

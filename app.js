@@ -3,6 +3,9 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var request = require('request');
+var proxy = require('http-proxy-middleware');
+
 
 var mongoose = require('mongoose');
 require('./models/Transaction.model.js');
@@ -34,10 +37,12 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
+app.use('/index', indexRouter);
 app.use('/api/products', productsRouter);
 app.use('/api/checkout', checkoutRouter);
 app.use('/api/completed', callbackRouter);
+
+app.use('/', proxy({target: 'http://localhost:3334/', changeOrigin: true, ws: true,}));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
